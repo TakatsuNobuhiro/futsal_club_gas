@@ -44,4 +44,9 @@ class line {
     this.post_message(url,postData)
   }
 }
-// 自分のラインのIDは"USER_ID"に格納
+// 自分のラインのIDは"USER_ID"に格納 'TEST_GROUP_ID'
+
+function test_line(){
+  line = new line("TEST_GROUP_ID")
+  line.push("group")
+}
