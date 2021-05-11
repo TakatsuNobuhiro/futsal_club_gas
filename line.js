@@ -44,8 +44,4 @@ class line {
     this.post_message(url,postData)
   }
 }
-
-function a_test(){
-  const test_line = new line()
-  test_line.broadCast("oppai")
-}
+// 自分のラインのIDは"USER_ID"に格納
