@@ -50,3 +50,4 @@ function test_line(){
   line = new line("TEST_GROUP_ID")
   line.push("group")
 }
+

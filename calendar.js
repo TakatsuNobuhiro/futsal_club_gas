@@ -3,7 +3,7 @@ class calendar {
     this.calendarId = PropertiesService.getScriptProperties().getProperty(idProperty)
   }
 
-  _HHmm(str){
+  changeDate(str){
     return Utilities.formatDate(str,'JST','HH:mm')
   };
   fetchEvents() {
@@ -11,13 +11,12 @@ class calendar {
     tomorrow.setDate( tomorrow.getDate() + 1 );
     const myCalendar = CalendarApp.getCalendarById(this.calendarId); //特定のIDのカレンダーを取得
     const tomorrow_events = myCalendar.getEventsForDay(tomorrow);　//カレンダーの本日のイベントを取得
-    Logger.log(tomorrow_events)
     let events_list = []
     /* イベントの数だけ繰り返し */
     for(const event of tomorrow_events){
       let title = event.getTitle(); //イベントのタイトル
-      let start = this._HHmm(event.getStartTime()); //イベントの開始時刻
-      let end = this._HHmm(event.getEndTime()); //イベントの終了時刻
+      let start = this.changeDate(event.getStartTime()); //イベントの開始時刻
+      let end = this.changeDate(event.getEndTime()); //イベントの終了時刻
       let location = event.getLocation()
       Logger.log(start)
 
