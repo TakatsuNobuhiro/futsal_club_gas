@@ -3,7 +3,7 @@ class calendar {
     this.calendarId = PropertiesService.getScriptProperties().getProperty(idProperty)
   }
 
-  changeDate(str){
+  static changeDate(str){
     return Utilities.formatDate(str,'JST','HH:mm')
   };
 
@@ -22,9 +22,10 @@ function test (){
   tomorrow_events = sample.fetchEvents(tomorrow)
   for(const event of tomorrow_events){
     let title = event.getTitle(); 
-    let start = this.changeDate(event.getStartTime()); 
-    let end = this.changeDate(event.getEndTime()); 
+    let start = calendar.changeDate(event.getStartTime()); 
+    let end = calendar.changeDate(event.getEndTime()); 
     let location = event.getLocation()
-
+    Logger.log(start)
+    Logger.log(title)
   };
 }
