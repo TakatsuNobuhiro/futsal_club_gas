@@ -3,8 +3,8 @@ class calendar {
     this.calendarId = PropertiesService.getScriptProperties().getProperty(idProperty)
   }
 
-  static changeDate(str){
-    return Utilities.formatDate(str,'JST','HH:mm')
+  static changeDate(date){
+    return Utilities.formatDate(date,'JST','HH:mm')
   };
 
   fetchEvents(day) {

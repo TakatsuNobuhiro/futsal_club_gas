@@ -1,8 +1,8 @@
 class twitter {
 
   constructor(){ this.twitter = TwitterWebService.getInstance(
-    '8EhswQz0a2YkLFrgBLANmTv5C',//API Key
-    'y90g1zsBgScKOFQBEcPf3w5cJYKlHQiKwrmHCzdXmjCI6biQxB'//API secret key
+    PropertiesService.getScriptProperties().getProperty('TWITTER_API_KEY'),//API Key
+    PropertiesService.getScriptProperties().getProperty('TWITTER_SECRET_KEY')//API secret key
   );
   }
    
@@ -24,12 +24,11 @@ class twitter {
   
   
   // ツイートを投稿
-  postTweet() {
+  postTweet(message) {
 
-    let service  = this.twitter.getService();
-    let endPointUrl = 'https://api.twitter.com/1.1/statuses/update.json';
-    
-    let response = service.fetch(endPointUrl, {
+    const service  = this.twitter.getService();
+    const endPointUrl = 'https://api.twitter.com/1.1/statuses/update.json';
+    const response = service.fetch(endPointUrl, {
       method: 'post',
       payload: {
         status: message
