@@ -1,6 +1,21 @@
+function setTrigger(functionName,setTime){
+  //最初に過去のトリガーを削除
+  this.delTrigger(functionName);
+  ScriptApp.newTrigger(functionName).timeBased().at(setTime).create();
+}
+
+function delTrigger(functionName) {
+  const triggers = ScriptApp.getProjectTriggers();
+  for(const trigger of triggers) {
+    if (trigger.getHandlerFunction() === functionName) {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  }
+}
+
 function tomorrowEventsPush (){
-  line = new line("TEST_GROUP_ID")
-  const myCalendar = new calendar("MY_CALENDAR_ID");
+  line = new line("TECH_GROUP_ID")
+  const myCalendar = new calendar("CALENDAR_ID");
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
   tomorrowEvents = myCalendar.fetchEvents(tomorrow)
@@ -34,3 +49,13 @@ function tomorrowEventsPush (){
     line.push(message)
   }
 }
+
+function tomorrow_set(){
+  let setTime = new Date();
+  setTime.setHours(21);
+  setTime.setMinutes(00); 
+  setTrigger("tomorrowEventsPush",setTime)
+}
+
+
+
