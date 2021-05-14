@@ -3,7 +3,7 @@ class slack {
     this.url = PropertiesService.getScriptProperties().getProperty(url)
 
   }
-  post_message(message){
+  postMessage(message){
     const postData = {
       'username' : 'slackbot',
       'text'     : message,
@@ -19,7 +19,7 @@ class slack {
     UrlFetchApp.fetch(this.url, options);
   }
 }
-function test_slack(){
+function testSlack(){
   const sample_slack = new slack("SLACK_URL")
-  sample_slack.post_message("test")
+  sample_slack.postMessage("test")
 }

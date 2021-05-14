@@ -7,7 +7,7 @@ class line {
     };
   }
 
-  post_message(url,postData){
+  postMessage(url,postData){
     const options = {
       "method": "post",
       "headers": this.headers,
@@ -28,7 +28,7 @@ class line {
         }
       ]
     };
-    this.post_message(url,postData)
+    this.postMessage(url,postData)
   }
 
   broadCast(message){
@@ -46,8 +46,5 @@ class line {
 }
 // 自分のラインのIDは"USER_ID"に格納 'TEST_GROUP_ID'
 
-function test_line(){
-  line = new line("TEST_GROUP_ID")
-  line.push("group")
-}
+
 

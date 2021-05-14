@@ -1,34 +1,35 @@
 class twitter {
 
-  var twitter = TwitterWebService.getInstance(
+  constructor(){ this.twitter = TwitterWebService.getInstance(
     '8EhswQz0a2YkLFrgBLANmTv5C',//API Key
     'y90g1zsBgScKOFQBEcPf3w5cJYKlHQiKwrmHCzdXmjCI6biQxB'//API secret key
   );
+  }
    
   //アプリを連携認証する
-  function authorize() {
-    twitter.authorize();
+  authorize() {
+    this.twitter.authorize();
   }
    
   //認証を解除する
-  function reset() {
-    twitter.reset();
+  reset() {
+    this.twitter.reset();
   }
    
   //認証後のコールバック
-  function authCallback(request) {
-    return twitter.authCallback(request);
+  authCallback(request) {
+    return this.twitter.authCallback(request);
   }
   
   
   
   // ツイートを投稿
-  function postTweet() {
+  postTweet() {
 
-    var service  = twitter.getService();
-    var endPointUrl = 'https://api.twitter.com/1.1/statuses/update.json';
+    let service  = this.twitter.getService();
+    let endPointUrl = 'https://api.twitter.com/1.1/statuses/update.json';
     
-    var response = service.fetch(endPointUrl, {
+    let response = service.fetch(endPointUrl, {
       method: 'post',
       payload: {
         status: message
