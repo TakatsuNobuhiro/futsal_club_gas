@@ -44,10 +44,36 @@ class line {
     this.post_message(url,postData)
   }
 }
-// 自分のラインのIDは"USER_ID"に格納 'TEST_GROUP_ID'
 
-function test_line(){
+
+function tomorrow_events_push (){
   line = new line("TEST_GROUP_ID")
-  line.push("group")
+  const myCalendar = new calendar("MY_CALENDAR_ID");
+  let tomorrow = new Date();
+  tomorrow.setDate( tomorrow.getDate() + 1 );
+  tomorrow_events = myCalendar.fetchEvents(tomorrow)
+  for(const event of tomorrow_events){
+    let message = "明日は"
+    if (event.isAllDayEvent()){
+      message += "終日\n"
+    } else{
+      let start = calendar.changeDate(event.getStartTime()); 
+      let end = calendar.changeDate(event.getEndTime()); 
+      message += `${start}~${end}に\n`
+    }
+    let location = event.getLocation()
+    if (!!location){
+      message += `${location}で\n`
+    }
+    let title = event.getTitle(); 
+    message += `${title}があります。`
+
+    // カレンダーのURL取得
+    // let event_id = event.getId().split('@')[0];
+    // let event_url = `https://www.google.com/calendar/event?eid=${Utilities.base64Encode(event_id+' '+PropertiesService.getScriptProperties().getProperty("MY_CALENDAR_ID"))}`
+    // message += event_url
+
+    line.push(message)
+  };
 }
 

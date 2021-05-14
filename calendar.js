@@ -15,17 +15,3 @@ class calendar {
 
 };
 
-function test (){
-  const sample = new calendar("MY_CALENDAR_ID");
-  let tomorrow = new Date();
-  tomorrow.setDate( tomorrow.getDate() + 1 );
-  tomorrow_events = sample.fetchEvents(tomorrow)
-  for(const event of tomorrow_events){
-    let title = event.getTitle(); 
-    let start = calendar.changeDate(event.getStartTime()); 
-    let end = calendar.changeDate(event.getEndTime()); 
-    let location = event.getLocation()
-    Logger.log(start)
-    Logger.log(title)
-  };
-}
