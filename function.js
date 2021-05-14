@@ -28,7 +28,9 @@ function tomorrowEventsPush (){
 
     
   };
-  if (!!tomorrowEvents){
+  if (tomorrowEvents.length){
+    // 文末の改行を取り除く
+    message = message.substr(0,message.length-1)
     line.push(message)
   }
 }
