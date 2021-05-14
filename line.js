@@ -7,7 +7,7 @@ class line {
     };
   }
 
-  post_message(url,postData){
+  postMessage(url,postData){
     const options = {
       "method": "post",
       "headers": this.headers,
@@ -28,7 +28,7 @@ class line {
         }
       ]
     };
-    this.post_message(url,postData)
+    this.postMessage(url,postData)
   }
 
   broadCast(message){
@@ -46,13 +46,13 @@ class line {
 }
 
 
-function tomorrow_events_push (){
+function tomorrowEventsPush (){
   line = new line("TEST_GROUP_ID")
   const myCalendar = new calendar("MY_CALENDAR_ID");
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
-  tomorrow_events = myCalendar.fetchEvents(tomorrow)
-  for(const event of tomorrow_events){
+  tomorrowEvents = myCalendar.fetchEvents(tomorrow)
+  for(const event of tomorrowEvents){
     let message = "明日は"
     if (event.isAllDayEvent()){
       message += "終日\n"
