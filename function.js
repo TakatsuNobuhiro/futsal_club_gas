@@ -58,4 +58,51 @@ function tomorrow_set(){
 }
 
 
+function RecruitPush (){
+  line = new line("TEST_GROUP_ID")
+  const myCalendar = new calendar("CALENDAR_ID");
+  let tomorrow = new Date();
+  tomorrow.setDate( tomorrow.getDate() + 1 );
+  tomorrowEvents = myCalendar.fetchEvents(tomorrow)
+  let message = "【明日の予定（活動）】\n"
+  for(const event of tomorrowEvents){
+    let color = event.getColor();
+
+    
+    // カレンダーの色が紫（ぶどう色）なら新歓イベント
+    if (color === "3"){
+      let title = event.getTitle(); 
+      message += `内容:${title}\n`
+
+      let start = calendar.changeDate(event.getStartTime()); 
+      let end = calendar.changeDate(event.getEndTime()); 
+      if (!event.isAllDayEvent()){
+        message += `日時:${start}~${end}\n`
+      };
+
+      let location = event.getLocation()
+      if (!!location && location.includes("東京工業大学")){
+        
+        message += "場所：東工大体育館\n"
+        
+      }
+      let line_message = message
+      line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。"
+      // 文末に参加希望者に出席の連絡を促したい
+      line.push(line_message)
+
+    }
+
+    
+  };
+}
+
+function recruit_set(){
+  let setTime = new Date();
+  setTime.setHours(08);
+  setTime.setMinutes(00); 
+  setTrigger("tomorrowEventsPush",setTime)
+}
+
+
 
