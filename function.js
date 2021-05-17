@@ -91,6 +91,9 @@ function RecruitPush (){
       // 文末に参加希望者に出席の連絡を促したい
       line.push(line_message)
 
+      let twitter_message = line_message 
+      twitter_message += "\n参加希望者はDMお願いします。新歓グループラインに招待します！\n#春から東工大"
+      
     }
 
     
