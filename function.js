@@ -68,7 +68,6 @@ function RecruitPush (){
   for(const event of tomorrowEvents){
     let color = event.getColor();
 
-    
     // カレンダーの色が紫（ぶどう色）なら新歓イベント
     if (color === "3"){
       let title = event.getTitle(); 
@@ -89,8 +88,8 @@ function RecruitPush (){
       if (tomorrowEvents.length){
         
         let line_message = message
-        // 文末に参加希望者に出席の連絡を促したい
-        line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。"
+
+        line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。\n参加希望者はGoogleフォームの回答をお願いします https://docs.google.com/forms/d/e/1FAIpQLSe8CNZudM8a6mcX11mRVEgiw-aD7lHw4xc2mhb7G30V2HPeeQ/viewform?usp=sf_link"
         line.push(line_message)
   
         let twitter_message = line_message 
@@ -101,18 +100,17 @@ function RecruitPush (){
 
     
   };
-}
-
-function recruit_set(){
   let setTime = new Date();
+  setTime.setDate(setTime.getDate()+1)
   setTime.setHours(08);
-  setTime.setMinutes(00); 
-  setTrigger("tomorrowEventsPush",setTime)
+  setTime.setMinutes(00);  
+  setTrigger("recruitNextEvent",setTime)
 }
 
 
 
-function test(){
+
+function recruitNextEvent(){
   line = new line("TEST_GROUP_ID")
   const myCalendar = new calendar("CALENDAR_ID");
   const nextEvent = myCalendar.fetchNextEvents();
@@ -134,6 +132,8 @@ function test(){
       
     }
     let line_message = message 
+    line.push(line_message)
+
     let twitter_message = message 
     twitter_message += "参加希望者はDMお願いします！\n#春から東工大"
     Logger.log(twitter_message)
