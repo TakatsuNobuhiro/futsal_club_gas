@@ -18,7 +18,7 @@ function tomorrowEventsPush (){
   const myCalendar = new calendar("CALENDAR_ID");
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
-  tomorrowEvents = myCalendar.fetchEvents(tomorrow)
+  tomorrowEvents = myCalendar.fetchEventsForDay(tomorrow)
   let message = "明日は"
   for(const event of tomorrowEvents){
     
@@ -63,7 +63,7 @@ function RecruitPush (){
   const myCalendar = new calendar("CALENDAR_ID");
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
-  tomorrowEvents = myCalendar.fetchEvents(tomorrow)
+  tomorrowEvents = myCalendar.fetchEventsForDay(tomorrow)
   let message = "【明日の予定（活動）】\n"
   for(const event of tomorrowEvents){
     let color = event.getColor();
@@ -93,7 +93,7 @@ function RecruitPush (){
 
       let twitter_message = line_message 
       twitter_message += "\n参加希望者はDMお願いします。新歓グループラインに招待します！\n#春から東工大"
-      
+
     }
 
     
