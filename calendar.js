@@ -6,6 +6,9 @@ class calendar {
   static changeDate(str){
     return Utilities.formatDate(str,'JST','HH:mm')
   };
+  static getDate(str){
+    return Utilities.formatDate(str,'JST','MM/dd HH:mm')
+  };
 
   fetchEventsForDay(day) {
     const myCalendar = CalendarApp.getCalendarById(this.calendarId); 
@@ -21,9 +24,15 @@ class calendar {
 
   fetchNextEvents(){
     let today = new Date();
-    let nextMonth = new Date()
-    nextMonth = nextMonth.setDate(today.getMonth()+1)
-    this.fetchEvents(today,nextMonth)
+    let nextMonth = new Date();
+    nextMonth.setDate(nextMonth.getDate()+30)
+    const events = this.fetchEvents(today,nextMonth)
+    for (let event of events){
+      if (event.getColor() === "3"){
+        return event
+      }
+    }
+    return false
   }
 
 };

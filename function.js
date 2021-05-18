@@ -86,13 +86,16 @@ function RecruitPush (){
         message += "場所：東工大体育館\n"
         
       }
-      let line_message = message
-      line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。"
-      // 文末に参加希望者に出席の連絡を促したい
-      line.push(line_message)
-
-      let twitter_message = line_message 
-      twitter_message += "\n参加希望者はDMお願いします。新歓グループラインに招待します！\n#春から東工大"
+      if (tomorrowEvents.length){
+        
+        let line_message = message
+        // 文末に参加希望者に出席の連絡を促したい
+        line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。"
+        line.push(line_message)
+  
+        let twitter_message = line_message 
+        twitter_message += "\n参加希望者はDMお願いします。新歓グループラインに招待します！\n#春から東工大"
+      }
 
     }
 
@@ -109,3 +112,30 @@ function recruit_set(){
 
 
 
+function test(){
+  line = new line("TEST_GROUP_ID")
+  const myCalendar = new calendar("CALENDAR_ID");
+  const nextEvent = myCalendar.fetchNextEvents();
+
+  if (nextEvent){
+    const title = nextEvent.getTitle();
+    let message = `【次回の予定】\n内容：${title}`
+  
+    let start = calendar.getDate(nextEvent.getStartTime()); 
+    let end = calendar.changeDate(nextEvent.getEndTime()); 
+    if (!nextEvent.isAllDayEvent()){
+      message += `日時:${start}~${end}\n`
+    };
+  
+    let location = nextEvent.getLocation()
+    if (!!location && location.includes("東京工業大学")){
+      
+      message += "場所：東工大体育館\n"
+      
+    }
+    let line_message = message 
+    let twitter_message = message 
+    twitter_message += "参加希望者はDMお願いします！\n#春から東工大"
+    Logger.log(twitter_message)
+  }
+}
