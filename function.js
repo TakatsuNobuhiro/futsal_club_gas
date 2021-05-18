@@ -117,7 +117,7 @@ function recruitNextEvent(){
 
   if (nextEvent){
     const title = nextEvent.getTitle();
-    let message = `【次回の予定】\n内容：${title}`
+    let message = `【次回の予定】\n内容：${title}\n`
   
     let start = calendar.getDate(nextEvent.getStartTime()); 
     let end = calendar.changeDate(nextEvent.getEndTime()); 
