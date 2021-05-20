@@ -132,10 +132,15 @@ function recruitNextEvent(){
       
     }
     let line_message = message 
+    line_message += "参加希望者は予定をあけておいてください。"
     line.push(line_message)
 
     let twitter_message = message 
     twitter_message += "参加希望者はDMお願いします！\n#春から東工大"
     Logger.log(twitter_message)
   }
+}
+
+function doGet(){
+  return HtmlService.createHtmlOutputFromFile('index');
 }
