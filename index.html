@@ -10,26 +10,26 @@
       <h1 class="text-center danger">東工大フットサル部出欠確認</h1>
     </header>
     <main>
-      <h2>欠席or遅刻,早退する予定の方のみ回答お願いします</h2>
+      <h2>出席する人は回答する必要はありません</h2>
       <form action="https://script.google.com/macros/s/AKfycbzzoY7OD_7jRmFarJx0gb2cSFdIkoIAtom7y88MeS0EUNxMaZKVioyPPLVBro47cQqI/exec",method="post">
-
-    <div class="mb-3 form-check">
-      <h3>出欠or遅刻or早退</h3>
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <div class="mb-3">
+      <select class="form-select">
+        <option selected>欠席or遅刻or早退を選択してください</option>
+        <option value="1">欠席</option>
+        <option value="2">遅刻</option>
+        <option value="3">早退</option>
+      </select>
     </div>
     <div class="mb-3">
-      <h3>背番号（半角英数）</h3>
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      <label for="number" class="form-label">背番号（半角英数）</label>
+      <input type="number" class="form-control" >
+      <div id="emailHelp" class="form-text">必ず半角英数で回答してください （悪い例）１０（良い例）10</div>
     </div>
     <div class="mb-3">
-      <h3>理由</h3>
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="reason" class="form-label">理由</label>
+      <input type="text" class="form-control" >
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">送信</button>
   </form>
 
 
