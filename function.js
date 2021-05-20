@@ -142,5 +142,27 @@ function recruitNextEvent(){
 }
 
 function doGet(){
-  return HtmlService.createHtmlOutputFromFile('index');
+  let html = HtmlService.createTemplateFromFile("index").evaluate();
+  html.setTitle("出欠確認");
+  return html;
 }
+
+function doPost(e){
+  let html = HtmlService.createTemplateFromFile("result").evaluate();
+  line = new line("USER_ID")
+  // const select = e.parameters.name.toString();
+  const attendanceList = [
+    "欠席",
+    "遅刻",
+    "早退",
+  ]
+  const attendanceType = attendanceList[e.parameter.type-1];
+  const number = e.parameter.number;
+  const name = e.parameter.name;
+  const reason = e.parameter.reason;
+  let message =`【${attendanceType}】\n名前：${name}\n理由：${reason}`
+  line.push(message)
+  Logger.log(e)
+  return html
+}
+
