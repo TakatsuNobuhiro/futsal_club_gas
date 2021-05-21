@@ -165,7 +165,7 @@ function doPost(e){
     message += `\n備考：${remark}`
   }
   line.push(message)
-  sheet(number)
+  sheet(number.toString)
 
   return html
 }
