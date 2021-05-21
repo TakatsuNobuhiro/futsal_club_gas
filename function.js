@@ -150,7 +150,6 @@ function doGet(){
 function doPost(e){
   let html = HtmlService.createTemplateFromFile("result").evaluate();
   line = new line("USER_ID")
-  // const select = e.parameters.name.toString();
   const attendanceList = [
     "欠席",
     "遅刻",
@@ -160,9 +159,30 @@ function doPost(e){
   const number = e.parameter.number;
   const name = e.parameter.name;
   const reason = e.parameter.reason;
+  const remark = e.parameter.remark;
   let message =`【${attendanceType}】\n名前：${name}\n理由：${reason}`
+  if(remark){
+    message += `\n備考：${remark}`
+  }
   line.push(message)
-  Logger.log(e)
+  sheet(number)
+
   return html
+}
+function sheet(number){
+  // idを格納したい
+  const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName("2021/1");
+  let number_cells = ss.getRange(3,2,ss.getLastRow()-2,1)
+  let number_list = number_cells.getValues()
+  let number_row = 0
+  // 二分探索がベスト
+  for (let n of number_list){
+    if(n[0] === number){
+      number_row = i + 3
+    }
+  }
+  let number_column = ss.getLastColumn();
+  ss.getRange(number_row,number_column).setValue(number)
+  
 }
 
