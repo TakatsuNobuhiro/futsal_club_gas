@@ -186,3 +186,11 @@ function sheet(number){
   
 }
 
+function getCallbackUrl() {
+  const consumerKey = PropertiesService.getScriptProperties().getProperty("TWITTER_API_KEY")
+  const consumerSecret = PropertiesService.getScriptProperties().getProperty("TWITTER_SECRET_API_KEY")
+  const client = TwitterClient.getInstance(consumerKey, consumerSecret)
+  Logger.log('以下のURLをTwitterアプリのCallbackURLに登録');
+  Logger.log(client.getCallbackUrl());
+}
+
