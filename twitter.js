@@ -1,3 +1,5 @@
+// ライブラリのURL　https://script.google.com/u/1/home/projects/1rgo8rXsxi1DxI_5Xgo_t3irTw1Y5cxl2mGSkbozKsSXf2E_KBBPC3xTF/edit
+
 // class twitterClass {
 
 //   constructor(){ this.twitter = TwitterWebService.getInstance(
