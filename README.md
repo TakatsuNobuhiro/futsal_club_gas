@@ -2,7 +2,7 @@
 Google Apps Script で明日の部活の予定を21時にグループライン、Twitter（新歓期のみ）、Slack（現在停止中）で呟くボットを作成
 グループラインには遅刻（早退）欠席者用のフォームのURLを添付し、回答した場合、その情報が一部の人へ通知＆スプレットシートへの自動記入を行う。
 ![回答フォーム](https://user-images.githubusercontent.com/65536732/121879852-455d1680-cd48-11eb-8234-b9904f8ac0ac.png)
-![グループLINE](https://user-images.githubusercontent.com/65536732/121880168-a71d8080-cd48-11eb-9330-4f758d880ad2.png)
+<img width="316" alt="スクリーンショット 2021-06-14 19 42 17" src="https://user-images.githubusercontent.com/65536732/121880440-f6fc4780-cd48-11eb-919f-9726573ca7d8.png">
 ![出欠管理スプレットシート](https://user-images.githubusercontent.com/65536732/121880342-db913c80-cd48-11eb-9ff3-0db1f734837b.png)
 
 ## なぜ作ろうと思ったのか？
