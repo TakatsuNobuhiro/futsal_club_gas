@@ -1,3 +1,4 @@
+const useSheetName = "2021/1"
 function setTrigger(functionName,setTime){
   //最初に過去のトリガーを削除
   this.delTrigger(functionName);
@@ -18,6 +19,11 @@ function tomorrowEventsPush (){
   const myCalendar = new calendar("CALENDAR_ID");
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
+
+  const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName(useSheetName);
+  let tomorrow_cell = ss.getRange(1,ss.getLastColumn()+1)
+  tomorrow_cell.setValue(tomorrow)
+
   tomorrowEvents = myCalendar.fetchEventsForDay(tomorrow)
   let message = "明日は"
   for(const event of tomorrowEvents){
@@ -45,7 +51,8 @@ function tomorrowEventsPush (){
   };
   if (tomorrowEvents.length){
     // 文末の改行を取り除く
-    message = message.substr(0,message.length-1)
+    const form_url = "https://script.google.com/macros/s/AKfycbzD4vEuaH6xD1mzOZKy3N_WiB3gkNPo2hsF-L8Ix_WikLwK8Ttz73vI7TStdxJ0vxQ-/exec"
+    message += `欠席、遅刻早退者はフォームの回答をお願いします。\n${form_url}`
     line.push(message)
   }
 }
@@ -156,7 +163,7 @@ function doPost(e){
     "早退",
   ]
   const attendanceType = attendanceList[e.parameter.type-1];
-  const number = e.parameter.number;
+  const uniformNumber = e.parameter.number;
   const name = e.parameter.name;
   const reason = e.parameter.reason;
   const remark = e.parameter.remark;
@@ -165,32 +172,37 @@ function doPost(e){
     message += `\n備考：${remark}`
   }
   line.push(message)
-  sheet(number.toString)
+
+  sheet(Number(uniformNumber),attendanceType)
 
   return html
 }
-function sheet(number){
+function sheet(uniformNumber,attendanceType){
   // idを格納したい
-  const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName("2021/1");
+  const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName(useSheetName);
+
   let number_cells = ss.getRange(3,2,ss.getLastRow()-2,1)
   let number_list = number_cells.getValues()
   let number_row = 0
   // 二分探索がベスト
-  for (let n of number_list){
-    if(n[0] === number){
+  for (let i=0; i < number_list.length; i++){
+    let n = number_list[i][0]
+    if(n === uniformNumber){
       number_row = i + 3
+      let number_column = ss.getLastColumn();
+      let penaltyPoint
+      if (attendanceType ==="遅刻"){
+        penaltyPoint=3
+      }else{
+        penaltyPoint=1
+      };
+
+      ss.getRange(number_row,number_column).setValue(penaltyPoint)
     }
   }
-  let number_column = ss.getLastColumn();
-  ss.getRange(number_row,number_column).setValue(number)
+
   
 }
 
-function getCallbackUrl() {
-  const consumerKey = PropertiesService.getScriptProperties().getProperty("TWITTER_API_KEY")
-  const consumerSecret = PropertiesService.getScriptProperties().getProperty("TWITTER_SECRET_API_KEY")
-  const client = TwitterClient.getInstance(consumerKey, consumerSecret)
-  Logger.log('以下のURLをTwitterアプリのCallbackURLに登録');
-  Logger.log(client.getCallbackUrl());
-}
+
 

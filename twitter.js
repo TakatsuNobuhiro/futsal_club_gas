@@ -204,3 +204,21 @@ function getInstance(consumerKey, consumerSecret, clientName = '') {
 function getClientList () {
   return clientList
 }
+
+
+const consumerKey = PropertiesService.getScriptProperties().getProperty("TWITTER_API_KEY")
+const consumerSecret = PropertiesService.getScriptProperties().getProperty("TWITTER_API_SECRET_KEY")
+const client = new TwitterClient(consumerKey, consumerSecret)
+
+function getCallBackUrl() {
+  Logger.log('以下のURLをTwitterアプリのCallbackURLに登録');
+  Logger.log(client.getCallbackUrl());
+  client.authorize()
+}
+function authCallback (request) {
+  return client.authCallback(request)
+}
+function testTweet(){
+  client.postTweet("test")
+}
+
