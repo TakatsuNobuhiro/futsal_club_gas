@@ -20,9 +20,7 @@ function tomorrowEventsPush (){
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
 
-  const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName(useSheetName);
-  let tomorrow_cell = ss.getRange(1,ss.getLastColumn()+1)
-  tomorrow_cell.setValue(tomorrow)
+
 
   tomorrowEvents = myCalendar.fetchEventsForDay(tomorrow)
   let message = "明日は"
@@ -51,6 +49,10 @@ function tomorrowEventsPush (){
   };
   if (tomorrowEvents.length){
     // 文末の改行を取り除く
+    const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName(useSheetName);
+    let tomorrow_cell = ss.getRange(1,ss.getLastColumn()+1)
+    tomorrow_cell.setValue(tomorrow)
+    
     const form_url = "https://script.google.com/macros/s/AKfycbzD4vEuaH6xD1mzOZKy3N_WiB3gkNPo2hsF-L8Ix_WikLwK8Ttz73vI7TStdxJ0vxQ-/exec"
     message += `欠席、遅刻早退者はフォームの回答をお願いします。\n${form_url}`
     line.push(message)
@@ -191,7 +193,7 @@ function sheet(uniformNumber,attendanceType){
       number_row = i + 3
       let number_column = ss.getLastColumn();
       let penaltyPoint
-      if (attendanceType ==="遅刻"){
+      if (attendanceType ==="欠席"){
         penaltyPoint=3
       }else{
         penaltyPoint=1
