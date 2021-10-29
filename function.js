@@ -53,7 +53,7 @@ function tomorrowEventsPush (){
     let tomorrow_cell = ss.getRange(1,ss.getLastColumn()+1)
     tomorrow_cell.setValue(tomorrow)
     
-    const form_url = "https://script.google.com/macros/s/AKfycbzD4vEuaH6xD1mzOZKy3N_WiB3gkNPo2hsF-L8Ix_WikLwK8Ttz73vI7TStdxJ0vxQ-/exec"
+    const form_url = "https://docs.google.com/forms/d/e/1FAIpQLSc732q816RJR7KN7m-mdnlFcUO6YO1zQ24b46zAEH9NWIfo6Q/viewform?usp=sf_link"
     message += `欠席、遅刻早退者はフォームの回答をお願いします。\n${form_url}`
     line.push(message)
   }
@@ -61,7 +61,7 @@ function tomorrowEventsPush (){
 
 function tomorrow_set(){
   let setTime = new Date();
-  setTime.setHours(21);
+  setTime.setHours(07);
   setTime.setMinutes(00); 
   setTrigger("tomorrowEventsPush",setTime)
 }
@@ -150,10 +150,49 @@ function recruitNextEvent(){
   }
 }
 
-function doGet(){
-  let html = HtmlService.createTemplateFromFile("index").evaluate();
-  html.setTitle("出欠確認");
-  return html;
+// function doGet(){
+//   let html = HtmlService.createTemplateFromFile("index").evaluate();
+//   html.setTitle("出欠確認");
+//   return html;
+// }
+
+function sendForm(e){
+  line = new line("TEST_GROUP_ID")
+  const responses = e.response.getItemReponses();
+  const attendanceType = responses[0].getResponse();
+  const uniformNumber = responses[1].getResponse();
+  const reason = responses[2].getResponse();
+  const remark = responses[3].getResponse();
+
+  // スプレットシートを開く
+  const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName(useSheetName);
+  let number_cells = ss.getRange(3,2,ss.getLastRow()-2,1)
+  let number_list = number_cells.getValues()
+  let number_row = 0
+  // 二分探索がベスト
+  for (let i=0; i < number_list.length; i++){
+    let n = number_list[i][0]
+    if(n === uniformNumber){
+      number_row = i + 3
+      let number_column = ss.getLastColumn();
+      let penaltyPoint
+      if (attendanceType ==="欠席"){
+        penaltyPoint=3
+      }else{
+        penaltyPoint=1
+      };
+      let name = ss.getRange(3+i,1).getValue()
+      ss.getRange(number_row,number_column).setValue(penaltyPoint)
+
+    }
+  }
+  // 背番号からname取得
+
+  let message =`【${attendanceType}】\n名前：${name}\n理由：${reason}`
+  if(remark){
+    message += `\n備考：${remark}`
+  }
+  line.push(message)
 }
 
 function doPost(e){
