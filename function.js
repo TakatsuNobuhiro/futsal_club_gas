@@ -23,8 +23,24 @@ function tomorrowEventsPush (){
 
 
   tomorrowEvents = myCalendar.fetchEventsForDay(tomorrow)
+  let ng_title_count = 0
   let message = "明日は"
   for(const event of tomorrowEvents){
+    let is_ng_title = false
+    let title = event.getTitle();
+
+    // いらないイベントを取り除く
+    let ng_title_list = ['F-net','FNET','都大','新歓','自主練']
+    for (const ng_title of ng_title_list){
+      if(title.indexOf(ng_title)!=-1){
+        ng_title_count+=1
+        is_ng_title = true
+      }
+    }
+    if (is_ng_title){
+      continue
+    }
+    
     
     if (event.isAllDayEvent()){
       message += "終日\n"
@@ -37,7 +53,7 @@ function tomorrowEventsPush (){
     if (!!location){
       message += `${location}で`
     }
-    let title = event.getTitle(); 
+     
     message += `${title}があります。\n`
 
     // カレンダーのURL取得
@@ -47,7 +63,7 @@ function tomorrowEventsPush (){
 
     
   };
-  if (tomorrowEvents.length){
+  if (tomorrowEvents.length > ng_title_count){
     // 文末の改行を取り除く
     const ss =  SpreadsheetApp.openById("13WA_Q3VpsYsBuOpFqBjaACSoSnL4pqXLNe0evAPRjWs").getSheetByName(useSheetName);
     let tomorrow_cell = ss.getRange(1,ss.getLastColumn()+1)
@@ -61,7 +77,7 @@ function tomorrowEventsPush (){
 
 function tomorrow_set(){
   let setTime = new Date();
-  setTime.setHours(07);
+  setTime.setHours(12);
   setTime.setMinutes(00); 
   setTrigger("tomorrowEventsPush",setTime)
 }
