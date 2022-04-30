@@ -30,7 +30,7 @@ function tomorrowEventsPush (){
     let title = event.getTitle();
 
     // いらないイベントを取り除く
-    let ng_title_list = ['F-net','FNET','都大','新歓','自主練']
+    let ng_title_list = ['F-net','FNET','Fネット','大学カップ','選手権','都大','新歓','自主練']
     for (const ng_title of ng_title_list){
       if(title.indexOf(ng_title)!=-1){
         ng_title_count+=1
