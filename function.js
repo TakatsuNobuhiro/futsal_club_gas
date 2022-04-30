@@ -1,4 +1,4 @@
-const useSheetName = "2021/1"
+const useSheetName = "2022/2023"
 function setTrigger(functionName,setTime){
   //最初に過去のトリガーを削除
   this.delTrigger(functionName);
