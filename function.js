@@ -86,47 +86,43 @@ function tomorrow_set(){
 
 
 function RecruitPush (){
-  line = new line("TEST_GROUP_ID")
+  line = new line("RECRUIT_GROUP_ID")
   const myCalendar = new calendar("CALENDAR_ID");
   let tomorrow = new Date();
   tomorrow.setDate( tomorrow.getDate() + 1 );
   tomorrowEvents = myCalendar.fetchEventsForDay(tomorrow)
-  let message = "【明日の予定（活動）】\n"
+  let message = "【明日の新歓予定】\n"
+  let has_event = false
   for(const event of tomorrowEvents){
-    let color = event.getColor();
-
-    // カレンダーの色が紫（ぶどう色）なら新歓イベント
-    if (color === "3"){
-      let title = event.getTitle(); 
+    let title = event.getTitle();
+    if(title.indexOf("新歓")!=-1){
       message += `内容:${title}\n`
-
+  
       let start = calendar.changeDate(event.getStartTime()); 
       let end = calendar.changeDate(event.getEndTime()); 
       if (!event.isAllDayEvent()){
         message += `日時:${start}~${end}\n`
       };
-
+  
       let location = event.getLocation()
       if (!!location && location.includes("東京工業大学")){
-        
         message += "場所：東工大体育館\n"
-        
       }
-      if (tomorrowEvents.length){
-        
-        let line_message = message
-
-        line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。\n参加希望者はGoogleフォームの回答をお願いします https://docs.google.com/forms/d/e/1FAIpQLSe8CNZudM8a6mcX11mRVEgiw-aD7lHw4xc2mhb7G30V2HPeeQ/viewform?usp=sf_link"
-        line.push(line_message)
-  
-        let twitter_message = line_message 
-        twitter_message += "\n参加希望者はDMお願いします。新歓グループラインに招待します！\n#春から東工大"
-      }
-
+      let has_event = true
+      break
     }
+  }
 
-    
-  };
+    if (has_event){
+      
+      let line_message = message
+
+      line_message += "運動できる服装と飲み物の持参をお願いします。\nシューズが無い方にはシューズをお貸しします。\n参加希望者はGoogleフォームの回答をお願いします https://docs.google.com/forms/d/e/1FAIpQLSe8CNZudM8a6mcX11mRVEgiw-aD7lHw4xc2mhb7G30V2HPeeQ/viewform?usp=sf_link"
+      line.push(line_message)
+
+      let twitter_message = line_message
+      twitter_message += "\n参加希望者はDMお願いします。新歓グループラインに招待します！\n#春から東工大"
+    }
   let setTime = new Date();
   setTime.setDate(setTime.getDate()+1)
   setTime.setHours(08);
