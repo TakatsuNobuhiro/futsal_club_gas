@@ -69,8 +69,10 @@ function tomorrowEventsPush (){
     let tomorrow_cell = ss.getRange(1,ss.getLastColumn()+1)
     tomorrow_cell.setValue(tomorrow)
     
-    const form_url = "https://docs.google.com/forms/d/e/1FAIpQLSc732q816RJR7KN7m-mdnlFcUO6YO1zQ24b46zAEH9NWIfo6Q/viewform?usp=sf_link"
-    message += `欠席、遅刻早退者はフォームの回答をお願いします。\n${form_url}`
+    const absent_form_url = "https://docs.google.com/forms/d/e/1FAIpQLSc732q816RJR7KN7m-mdnlFcUO6YO1zQ24b46zAEH9NWIfo6Q/viewform?usp=sf_link"
+    const temperature_form_url = "https://forms.gle/AVFKhkyXb99RAaRaA"
+    message += `欠席、遅刻早退者はフォームの回答をお願いします。\n${absent_form_url}\n`
+    message += `出席者は体温報告をお願いします。\n${temperature_form_url}`
     line.push(message)
   }
 }
